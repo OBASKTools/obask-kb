@@ -1,8 +1,8 @@
 test: 
 	
 # Building docker image
-VERSION = "v0.0.5" 
-IM=matentzn/vfb-prod
+VERSION = "latest" 
+IM=ghcr.io/obasktools/obask-kb
 
 docker-build:
 	@docker build --no-cache -t $(IM):$(VERSION) . \

@@ -4,6 +4,9 @@ FROM neo4j:4.2-community
 ENV LOG4J_FORMAT_MSG_NO_LOOKUPS=true
 ENV NEO4J_dbms_jvm_additional="-Dlog4j2.formatMsgNoLookups=true -Dlog4j2.disable.jmx=true"
 
+VOLUME /input
+ENV CSV_IMPORTS=/input/dumps/csv_imports
+
 ENV NEOREADONLY=false
 
 ENV BACKUPFILE="neo4j.dump"

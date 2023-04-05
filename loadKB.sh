@@ -21,7 +21,12 @@ echo 'dbms.security.procedures.unrestricted=ebi.spot.neo4j2owl.*,apoc.*,gds.*' >
 #  fi
 #fi
 
-echo -e '\nSTARTING BDS KB SERVER\n' >> /var/lib/neo4j/logs/query.log
+echo -e '\nSTARTING OBASK KB SERVER\n' >> /var/lib/neo4j/logs/query.log
+
+if [ -z "$(ls -A /var/lib/neo4j/import)" ]; then
+  echo "Transfering CSVs to import"
+  cp -R $CSV_IMPORTS/. /var/lib/neo4j/import
+fi
 
 #Output the query log to docker log:
 tail -f /var/lib/neo4j/logs/query.log >/proc/1/fd/1 &
