@@ -7,15 +7,27 @@ ENV NEO4J_dbms_jvm_additional="-Dlog4j2.formatMsgNoLookups=true -Dlog4j2.disable
 VOLUME /input
 ENV CSV_IMPORTS=/input/dumps/csv_imports
 
+# Location of config files (separate in v2)
+ENV NEOCONF="/var/lib/neo4j/conf/neo4j.conf"
+ENV NEOSERCONF=${NEOCONF}
+
 ENV NEOREADONLY=false
 
 ENV BACKUPFILE="neo4j.dump"
 
-ENV NEO4J_dbms_memory_heap_maxSize=4G
+# Enable upgrading of DB:
+ENV NEO4J_ALLOW_STORE_UPGRADE=true
+ENV NEO4J_dbms_allow__upgrade=true
+
+ENV NEO4J_dbms_memory_heap_maxSize=5G
 ENV NEO4J_dbms_memory_pagecache_size=4G
 ENV NEO4J_dbms_memory_heap_initial__size=1G
-ENV NEO4J_dbms_read__only=true
+ENV NEO4J_dbms_read__only=false
 ENV NEO4J_dbms_security_procedures_unrestricted=ebi.spot.neo4j2owl.*,apoc.*,gds.*
+# Add apoc tools
+ENV NEO4J_apoc_export_file_enabled=true
+ENV NEO4J_apoc_import_file_enabled=true
+ENV NEO4J_apoc_import_file_use__neo4j__config=true
 ENV NEO4JLABS_PLUGINS=[]
 
 # Addditional configs for community based image
@@ -23,7 +35,7 @@ ENV NEO4J_dbms_read__only=false
 ENV NEO4J_dbms_security_auth__enabled=false
 ENV NEO4J_AUTH=neo4j/neo
 ENV NEO4J_ACCEPT_LICENSE_AGREEMENT=yes
-ENV NEO4J_dbms_directories_import=/import
+ENV NEO4J_dbms_directories_import=import
 ENV NEO4J_dbms_security_allow_csv_import_from_file_urls=true
 
 RUN apt-get -qq update || apt-get -qq update && \
