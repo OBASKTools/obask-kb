@@ -1,7 +1,7 @@
-FROM neo4j:4.2-community
+FROM neo4j:4.4-community
 
 # Fix for log4j vulnerability
-ENV LOG4J_FORMAT_MSG_NO_LOOKUPS=true
+ENV LOG4J_FORMAT_MSG_NO_LOOKUPcd S=true
 ENV NEO4J_dbms_jvm_additional="-Dlog4j2.formatMsgNoLookups=true -Dlog4j2.disable.jmx=true"
 
 VOLUME /input
@@ -45,19 +45,19 @@ COPY loadKB.sh /opt/VFB/
 #COPY /backup /backup/
 
 ##### NEO4J TO OWL TOOLS #####
-ENV NEO4J2OWL_VERSION=1.1.24-PRE
+ENV NEO4J2OWL_VERSION=1.1.25-44_PRE
 ARG NEO4J2OWL_JAR=https://github.com/VirtualFlyBrain/neo4j2owl/releases/download/$NEO4J2OWL_VERSION/neo4j2owl.jar
 RUN wget $NEO4J2OWL_JAR -O /var/lib/neo4j/plugins/neo4j2owl.jar
 
 ###### APOC TOOLS ######
-ENV APOC_VERSION=4.2.0.2
+ENV APOC_VERSION=4.4.0.3
 ARG APOC_JAR=https://github.com/neo4j-contrib/neo4j-apoc-procedures/releases/download/$APOC_VERSION/apoc-$APOC_VERSION-all.jar
 ENV APOC_JAR=${APOC_JAR}
 RUN wget $APOC_JAR -O /var/lib/neo4j/plugins/apoc.jar
 
 ###### GDS TOOLS ######
-ENV GDS_VERSION=1.5.1
-ARG GDS_JAR=https://s3-eu-west-1.amazonaws.com/com.neo4j.graphalgorithms.dist/graph-data-science/neo4j-graph-data-science-$GDS_VERSION-standalone.zip
+ENV GDS_VERSION=2.0.2
+ARG GDS_JAR=https://graphdatascience.ninja/neo4j-graph-data-science-$GDS_VERSION.zip
 ENV GDS_JAR ${GDS_JAR}
 RUN wget $GDS_JAR -O /var/lib/neo4j/plugins/gds.zip && cd /var/lib/neo4j/plugins/ && unzip gds.zip && rm gds.zip
 
