@@ -1,6 +1,6 @@
 #!/bin/sh
-echo "set read only = ${NEOREADONLY} then launch neo4j service"
-sed -i s/read_only=.*/read_only=${NEOREADONLY}/ ${NEOSERCONF} && \
+#echo "set read only = ${NEOREADONLY} then launch neo4j service"
+#sed -i s/read_only=.*/read_only=${NEOREADONLY}/ ${NEOSERCONF} && \
 
 echo 'Allow new neo4j2owl plugin to make changes..'
 echo 'dbms.security.procedures.unrestricted=ebi.spot.neo4j2owl.*,apoc.*,gds.*' >> ${NEOSERCONF}
